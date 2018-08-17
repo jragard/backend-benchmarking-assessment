@@ -25,6 +25,7 @@ def alphabetize(string):
 
 
 def find_anagrams(words):
+    # print words
     """ find_anagrams
 
         Return a dictionary with keys that are alphabetized words and values
@@ -36,11 +37,15 @@ def find_anagrams(words):
         {'dgo': ['dog'], 'act': ['cat', 'act']}
 
     """
-    anagrams = {
-        alphabetize(word): [
-            w for w in words
-            if alphabetize(w) == alphabetize(word)]
-        for word in words}
+    anagrams = {}
+
+    for word in words:
+        k = alphabetize(word)
+        if k not in anagrams:
+            anagrams[k] = [word]
+        else:
+            anagrams[k].append(word)
+
     return anagrams
 
 
@@ -53,3 +58,4 @@ if __name__ == "__main__":
         with open(sys.argv[1], 'r') as handle:
             words = handle.read().split()
             print find_anagrams(words)
+
